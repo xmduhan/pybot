@@ -1,11 +1,18 @@
 # pybot
-A UI automation tool implemented using a multimodal model.
+A UI automation tool built using a multimodal model.
 
-This project is inspired by: https://github.com/bytebot-ai/bytebot, but I prefer to use Python for backend development and API calls, and I aim to simplify the project to improve its usability.
+This project is inspired by: [bytebot](https://github.com/bytebot-ai/bytebot). I prefer using Python for backend development and API calls, and I'm aiming to simplify the project to enhance usability.
 
 ## Features
 - UI automation using multimodal models
-- Python backend and Web UI for config
+- Python backend with Web UI for configuration
 - Easy-to-use API calls
 
 ## Installation
+
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+### Installation Steps
+1. Clone the repository:
