@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     supervisor \              # Process control system
     netcat-openbsd \          # Networking utility
-    xpdf \                    # PDF viewer
-    gedit \                   # Text editor
-    xpaint \                  # Paint program
     libxtst-dev \             # X11 testing library
     mesa-utils \              # Mesa graphics utilities
     libgl1-mesa-dri \         # Mesa DRI graphics drivers
