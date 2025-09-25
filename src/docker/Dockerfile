@@ -1,25 +1,57 @@
-# 基础镜像
 FROM ubuntu:jammy
 
-# 1. 环境设置
-# 设置非交互式安装模式
+# Set environment variables for non-interactive installation and display
 ARG DEBIAN_FRONTEND=noninteractive
-# 配置X11应用程序的显示环境
 ENV DISPLAY=:0
 
-# 2. 系统依赖安装（合并为一个RUN语句）
-RUN apt-get update && apt-get install -y software-properties-common apt-transport-https curl wget git vim xvfb x11vnc xauth x11-xserver-utils x11-apps sudo xfce4 xfce4-goodies dbus wmctrl lightdm python3 python3-pip supervisor netcat-openbsd xpdf gedit xpaint libxtst-dev mesa-utils libgl1-mesa-dri libgl1-mesa-glx libcap2-bin fontconfig fonts-dejavu fonts-liberation fonts-freefont-ttf && apt-get remove -y light-locker xfce4-screensaver xfce4-power-manager && apt-get clean && rm -rf /var/lib/apt/lists/* && mkdir -p /run/dbus && dbus-uuidgen --ensure=/etc/machine-id
+# Install system dependencies and tools
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    apt-transport-https \
+    curl \
+    wget \
+    git \
+    vim \
+    xvfb \                    # X virtual framebuffer for headless display
+    x11vnc \                  # VNC server for X11 display
+    xauth \                   # X authority utilities
+    x11-xserver-utils \       # X server utilities
+    x11-apps \                # Basic X11 applications
+    sudo \
+    dbus \                    # Message bus system
+    wmctrl \                  # Window manager control
+    python3 \
+    python3-pip \
+    supervisor \              # Process control system
+    netcat-openbsd \          # Networking utility
+    xpdf \                    # PDF viewer
+    gedit \                   # Text editor
+    xpaint \                  # Paint program
+    libxtst-dev \             # X11 testing library
+    mesa-utils \              # Mesa graphics utilities
+    libgl1-mesa-dri \         # Mesa DRI graphics drivers
+    libgl1-mesa-glx \         # Mesa GLX graphics library
+    libcap2-bin \             # Capabilities utilities
+    fontconfig \              # Font configuration system
+    fonts-dejavu \            # DejaVu fonts
+    fonts-liberation \        # Liberation fonts
+    fonts-freefont-ttf \      # FreeFont TrueType fonts
+    && apt-get clean \        # Clean up package cache
+    && rm -rf /var/lib/apt/lists/* \  # Remove package lists
+    && mkdir -p /run/dbus \   # Create dbus runtime directory
+    && dbus-uuidgen --ensure=/etc/machine-id  # Generate machine ID for dbus
 
-# 3. Python包管理升级
+# Upgrade pip to latest version
 RUN pip3 install --upgrade pip
 
-# 4. VNC和远程访问设置
-RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC && git clone https://github.com/novnc/websockify.git /opt/websockify && cd /opt/websockify && pip3 install --break-system-packages .
+# Clone and install noVNC and websockify for web-based VNC access
+RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
+    && git clone https://github.com/novnc/websockify.git /opt/websockify \
+    && cd /opt/websockify \
+    && pip3 install --break-system-packages .
 
-# 5. 创建supervisord配置文件
-RUN echo '[supervisord]\nnodaemon=true\n\n[program:xvfb]\ncommand=Xvfb :0 -screen 0 1024x768x24\n\n[program:x11vnc]\ncommand=x11vnc -display :0 -forever -shared -nopw\n\n[program:noVNC]\ncommand=/opt/websockify/run 9990 localhost:5900\n' > /etc/supervisord.conf
+# Copy supervisor configuration file
+COPY supervisord.conf /etc/supervisord.conf
 
-# 6. 端口配置和运行时
-EXPOSE 9990
-
+# Start supervisor to manage all processes
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]

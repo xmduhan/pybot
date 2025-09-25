@@ -13,6 +13,20 @@ This project is inspired by: [bytebot](https://github.com/bytebot-ai/bytebot). I
 ### Prerequisites
 - Python 3.8 or higher
 - pip (Python package manager)
+- Docker (for containerized deployment)
 
 ### Installation Steps
+
+#### Option 1: Using Docker (Recommended)
 1. Clone the repository:
+2. Build the Docker image:
+   ```bash
+   docker build src/docker -t pybot
+   ```
+3. Run the container:
+   ```bash
+   docker run -p 9990:9990 pybot
+   ```
+
+#### Option 2: Manual Installation
+(原有内容保持不变)
