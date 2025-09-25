@@ -34,6 +34,11 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation \
     fonts-freefont-ttf \
     novnc \
+    # 安装Xfce桌面环境
+    xfce4 \
+    xfce4-goodies \
+    xfce4-terminal \
+    firefox \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
