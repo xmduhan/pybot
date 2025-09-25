@@ -33,20 +33,12 @@ RUN apt-get update && apt-get install -y \
     fonts-dejavu \
     fonts-liberation \
     fonts-freefont-ttf \
+    novnc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
     && mkdir -p /run/dbus \
     && dbus-uuidgen --ensure=/etc/machine-id
-
-# Upgrade pip to latest version
-RUN pip3 install --upgrade pip
-
-# Install noVNC and websockify for web remote desktop access
-RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
-    && git clone https://github.com/novnc/websockify.git /opt/websockify \
-    && cd /opt/websockify \
-    && pip3 install --break-system-packages .
 
 # Copy supervisor configuration file
 COPY supervisord.conf /etc/supervisord.conf
