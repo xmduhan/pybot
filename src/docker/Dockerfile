@@ -39,13 +39,6 @@ RUN apt-get update && apt-get install -y \
     xfce4 \
     xfce4-goodies \
     xfce4-terminal \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    # Create dbus runtime directory and generate machine ID
-    && mkdir -p /run/dbus \
-    && dbus-uuidgen --ensure=/etc/machine-id
-
-RUN apt-get install -y \                                                                                                                                                                                
     language-pack-zh-hans \
     language-pack-gnome-zh-hans \
     fonts-noto-cjk \
@@ -53,7 +46,13 @@ RUN apt-get install -y \
     fonts-wqy-microhei \
     ibus \
     ibus-libpinyin \
-    language-pack-zh-hans
+    language-pack-zh-hans \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    # Create dbus runtime directory and generate machine ID
+    && mkdir -p /run/dbus \
+    && dbus-uuidgen --ensure=/etc/machine-id
+
 RUN update-locale LANG=zh_CN.UTF-8
 
 # Copy supervisor configuration file

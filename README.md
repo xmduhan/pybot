@@ -25,8 +25,9 @@ This project is inspired by: [bytebot](https://github.com/bytebot-ai/bytebot). I
    ```
 3. Run the container:
    ```bash
-   docker run -p 9990:9990 pybot
+   docker run -p 6080:6080 pybot
    ```
+   Access the noVNC web interface at: http://localhost:6080/vnc.html
 
 #### Option 2: Manual Installation
 (原有内容保持不变)
