@@ -48,6 +48,7 @@ RUN apt-get update && apt-get install -y \
     ibus-libpinyin \
     language-pack-zh-hans \
     nginx \
+    firefox \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
