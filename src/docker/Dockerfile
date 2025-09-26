@@ -34,16 +34,25 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation \
     fonts-freefont-ttf \
     novnc \
-    # 安装Xfce桌面环境
     xfce4 \
     xfce4-goodies \
     xfce4-terminal \
-    firefox \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
     && mkdir -p /run/dbus \
     && dbus-uuidgen --ensure=/etc/machine-id
+
+RUN apt-get install -y \                                                                                                                                                                                
+    language-pack-zh-hans \
+    language-pack-gnome-zh-hans \
+    fonts-noto-cjk \
+    fonts-wqy-zenhei \
+    fonts-wqy-microhei \
+    ibus \
+    ibus-libpinyin \
+    language-pack-zh-hans
+RUN update-locale LANG=zh_CN.UTF-8
 
 # Copy supervisor configuration file
 COPY supervisord.conf /etc/supervisord.conf
