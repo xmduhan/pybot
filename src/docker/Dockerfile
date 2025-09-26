@@ -69,5 +69,7 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && mv squashfs-root/ /usr/share/ungoogled-chromium \
     && rm ungoogled-chromium.AppImage
 
+RUN pip install pyautogui
+
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
