@@ -47,6 +47,7 @@ RUN apt-get update && apt-get install -y \
     ibus \
     ibus-libpinyin \
     language-pack-zh-hans \
+    nginx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
@@ -54,6 +55,9 @@ RUN apt-get update && apt-get install -y \
     && dbus-uuidgen --ensure=/etc/machine-id
 
 RUN update-locale LANG=zh_CN.UTF-8
+
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy supervisor configuration file
 COPY supervisord.conf /etc/supervisord.conf
