@@ -62,5 +62,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy supervisor configuration file
 COPY supervisord.conf /etc/supervisord.conf
 
+
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
