@@ -48,7 +48,6 @@ RUN apt-get update && apt-get install -y \
     ibus-libpinyin \
     language-pack-zh-hans \
     nginx \
-    firefox \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
@@ -63,6 +62,12 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy supervisor configuration file
 COPY supervisord.conf /etc/supervisord.conf
 
+# Install Chromium in a single RUN command
+RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/releases/download/135.0.7049.95-1/ungoogled-chromium_135.0.7049.95-1.AppImage -O ungoogled-chromium.AppImage \
+    && chmod +x ungoogled-chromium.AppImage \
+    && ./ungoogled-chromium.AppImage --appimage-extract \
+    && mv squashfs-root/ /usr/share/ungoogled-chromium \
+    && rm ungoogled-chromium.AppImage
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
