@@ -3,6 +3,8 @@ FROM ubuntu:jammy
 ARG DEBIAN_FRONTEND=noninteractive
 # Set display environment variable
 ENV DISPLAY=:0
+# Set default display resolution to 1080p
+ENV DISPLAY_RESOLUTION=1920x1080x24
 
 # Base system update and package installation
 RUN apt-get update && apt-get install -y \
