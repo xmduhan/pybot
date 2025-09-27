@@ -48,6 +48,9 @@ RUN apt-get update && apt-get install -y \
     ibus-libpinyin \
     language-pack-zh-hans \
     nginx \
+    python3-tk \
+    python3-dev \
+    gnome-screenshot \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
@@ -73,8 +76,6 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && rm ungoogled-chromium.AppImage
 
 RUN pip install pyautogui
-RUN apt-get update
-RUN apt-get install -y python3-tk python3-dev gnome-screenshot
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
