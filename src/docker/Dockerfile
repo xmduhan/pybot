@@ -62,6 +62,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy supervisor configuration file
 COPY supervisord.conf /etc/supervisord.conf
 
+# Copy backend script
+COPY backend.sh /app/src/docker/backend.sh
+
 # Install Chromium in a single RUN command
 RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/releases/download/135.0.7049.95-1/ungoogled-chromium_135.0.7049.95-1.AppImage -O ungoogled-chromium.AppImage \
     && chmod +x ungoogled-chromium.AppImage \
