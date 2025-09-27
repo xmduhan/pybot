@@ -70,6 +70,8 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && rm ungoogled-chromium.AppImage
 
 RUN pip install pyautogui
+RUN apt-get install -y apt-get install python3-tk python3-dev gnome-screenshot
+RUN touch /root/.Xauthority && xauth generate :0 . trusted
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
