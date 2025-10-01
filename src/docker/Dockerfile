@@ -91,7 +91,7 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
 
 
 # Add cache busting argument
-ARG CACHE_BUST=2
+RUN echo "Build date: $build_date" > build_date.txt
 
 # Force git clone to always run by using cache busting argument
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot

@@ -23,11 +23,12 @@ This project is inspired by [bytebot](https://github.com/bytebot-ai/bytebot). It
 
 ## Quick Start
 
-### 编译镜像
+### 编译镜像并执行
 ```bash
 git clone https://github.com/xmduhan/pybot
 cd pybot
-build src/docker -t pybot
+docker build src/docker -t pybot --build-arg build_date="$(date +'%Y-%m-%d %H:%M:%S')" \
+  --network host --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy --build-arg no_proxy=$no_proxy 
 docker run pybot -p 8000:80
 ```
 
