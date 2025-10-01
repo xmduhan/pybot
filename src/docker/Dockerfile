@@ -91,7 +91,7 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
 
 
 # Add cache busting argument
-ARG CACHE_BUST=1
+ARG CACHE_BUST=2
 
 # Force git clone to always run by using cache busting argument
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
