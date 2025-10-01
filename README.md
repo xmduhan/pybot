@@ -23,4 +23,14 @@ This project is inspired by [bytebot](https://github.com/bytebot-ai/bytebot). It
 
 ## Quick Start
 
-### Clone the Repository
+### 编译镜像
+```bash
+git clone https://github.com/xmduhan/pybot
+cd pybot
+build src/docker -t pybot
+docker run pybot -p 8000:80
+```
+
+### 在浏览器中打开
+
+http://localhost:8000/

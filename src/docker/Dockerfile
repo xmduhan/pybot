@@ -68,14 +68,10 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && mv squashfs-root/ /usr/share/ungoogled-chromium \
     && rm ungoogled-chromium.AppImage
 
-# Copy backend script
-COPY backend.sh /app/src/docker/backend.sh
+RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy supervisor configuration file
-COPY supervisord.conf /etc/supervisord.conf
-
 # Set container startup command to supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
+CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
