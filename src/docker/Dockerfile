@@ -90,8 +90,7 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && rm ungoogled-chromium.AppImage
 
 
-# Add cache busting argument
-RUN echo "Build date: $build_date" > build_date.txt
+COPY src/docker/build_data.txt /build_data.txt
 
 # Force git clone to always run by using cache busting argument
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
