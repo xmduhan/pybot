@@ -6,14 +6,20 @@ ENV DISPLAY=:0
 # Set default display resolution to 1080p
 ENV DISPLAY_RESOLUTION=1920x1080x24
 
-# Base system update and package installation
-RUN apt-get update && apt-get install -y \
+# Base system update
+RUN apt-get update
+
+# Install base packages
+RUN apt-get install -y \
     software-properties-common \
     apt-transport-https \
     curl \
     wget \
     git \
-    vim \
+    vim
+
+# Install X11 and display related packages
+RUN apt-get install -y \
     xvfb \
     x11vnc \
     xauth \
@@ -21,43 +27,58 @@ RUN apt-get update && apt-get install -y \
     x11-apps \
     sudo \
     dbus \
-    wmctrl \
+    wmctrl
+
+# Install Python and development tools
+RUN apt-get install -y \
     python3 \
     python3-pip \
+    python3-tk \
+    python3-dev
+
+# Install system utilities
+RUN apt-get install -y \
     supervisor \
     netcat-openbsd \
     libxtst-dev \
     mesa-utils \
     libgl1-mesa-dri \
     libgl1-mesa-glx \
-    libcap2-bin \
+    libcap2-bin
+
+# Install fonts and language support
+RUN apt-get install -y \
     fontconfig \
     fonts-dejavu \
     fonts-liberation \
     fonts-freefont-ttf \
+    fonts-noto-cjk \
+    fonts-wqy-zenhei \
+    fonts-wqy-microhei
+
+# Install desktop environment and input method
+RUN apt-get install -y \
     novnc \
     xfce4 \
     xfce4-goodies \
     xfce4-terminal \
     language-pack-zh-hans \
     language-pack-gnome-zh-hans \
-    fonts-noto-cjk \
-    fonts-wqy-zenhei \
-    fonts-wqy-microhei \
     ibus \
-    ibus-libpinyin \
-    language-pack-zh-hans \
+    ibus-libpinyin
+
+# Install web server and Node.js
+RUN apt-get install -y \
     nginx \
-    python3-tk \
-    python3-dev \
-    gnome-screenshot \
     nodejs \
     npm \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    # Create dbus runtime directory and generate machine ID
-    && mkdir -p /run/dbus \
-    && dbus-uuidgen --ensure=/etc/machine-id
+    gnome-screenshot
+
+# Clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Create dbus runtime directory and generate machine ID
+RUN mkdir -p /run/dbus && dbus-uuidgen --ensure=/etc/machine-id
 
 RUN update-locale LANG=zh_CN.UTF-8
 
