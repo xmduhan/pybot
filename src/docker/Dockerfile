@@ -51,6 +51,8 @@ RUN apt-get update && apt-get install -y \
     python3-tk \
     python3-dev \
     gnome-screenshot \
+    nodejs \
+    npm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # Create dbus runtime directory and generate machine ID
@@ -69,6 +71,9 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && rm ungoogled-chromium.AppImage
 
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
+
+# Build frontend
+RUN cd /opt/pybot/src/frontend && npm install && npm run build
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
