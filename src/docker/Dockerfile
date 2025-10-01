@@ -82,7 +82,6 @@ RUN mkdir -p /run/dbus && dbus-uuidgen --ensure=/etc/machine-id
 
 RUN update-locale LANG=zh_CN.UTF-8
 
-RUN pip install pyautogui
 
 # Install Chromium in a single RUN command
 RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/releases/download/135.0.7049.95-1/ungoogled-chromium_135.0.7049.95-1.AppImage -O ungoogled-chromium.AppImage \
@@ -91,7 +90,14 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && mv squashfs-root/ /usr/share/ungoogled-chromium \
     && rm ungoogled-chromium.AppImage
 
+RUN pip install Django pyautogui
+
+# Add cache busting argument
+ARG CACHE_BUST=1
+
+# Force git clone to always run by using cache busting argument
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
+
 
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
