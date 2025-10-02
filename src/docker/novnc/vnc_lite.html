@@ -122,35 +122,15 @@
             return false;
         }
         function status(text, level) {
-            switch (level) {
-                case 'normal':
-                case 'warn':
-                case 'error':
-                    break;
-                default:
-                    level = "warn";
-            }
-            document.getElementById('noVNC_status_bar').className = "noVNC_status_" + level;
-            document.getElementById('noVNC_status').textContent = text;
+            // 移除状态栏显示逻辑
         }
 
         function connected(e) {
-            // 移除Send CtrlAltDel按钮相关的代码
-            if (WebUtil.getConfigVar('encrypt',
-                                     (window.location.protocol === "https:"))) {
-                status("Connected (encrypted) to " + desktopName, "normal");
-            } else {
-                status("Connected (unencrypted) to " + desktopName, "normal");
-            }
+            // 移除状态栏显示逻辑
         }
 
         function disconnected(e) {
             updatePowerButtons();
-            if (e.detail.clean) {
-                status("Disconnected", "normal");
-            } else {
-                status("Something went wrong, connection is closed", "error");
-            }
         }
 
         function updatePowerButtons() {
@@ -200,10 +180,8 @@
 
         (function() {
 
-            status("Connecting", "normal");
-
             if ((!host) || (!port)) {
-                status('Must specify host and port in URL', 'error');
+                console.error('Must specify host and port in URL');
             }
 
             var url;
@@ -236,10 +214,33 @@
             rfb.resizeSession = WebUtil.getConfigVar('resize', false);
         })();
     </script>
+    
+    <style>
+        /* 隐藏状态栏 */
+        #noVNC_status_bar {
+            display: none !important;
+        }
+        
+        /* 确保body全屏显示 */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        /* 确保RFB canvas全屏显示 */
+        .noVNC_canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="noVNC_status_bar">
+  <!-- 隐藏状态栏 -->
+  <div id="noVNC_status_bar" style="display: none;">
     <div id="noVNC_left_dummy_elem"></div>
     <div id="noVNC_status">Loading</div>
     <div id="noVNC_buttons">
