@@ -104,7 +104,7 @@ RUN pip install -r /opt/pybot/src/backend/requirements.txt
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
 
 # Copy nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 
 COPY novnc/vnc_lite.html /usr/share/novnc/vnc_lite.html
 
