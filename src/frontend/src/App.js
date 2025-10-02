@@ -9,7 +9,7 @@ function App() {
       <div className="main-display">
         <iframe
           title="VNC Viewer"
-          src="/novnc/vnc_lite.html"
+          src="/novnc/embedded.html"
           className="vnc-iframe"
         >
           您的浏览器不支持 iframe。

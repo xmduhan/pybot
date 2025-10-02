@@ -106,7 +106,7 @@ RUN cd /opt/pybot/src/frontend && npm install && npm run build
 # Copy nginx configuration
 RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 
-COPY novnc/vnc_lite.html /usr/share/novnc/vnc_lite.html
+RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.html
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
