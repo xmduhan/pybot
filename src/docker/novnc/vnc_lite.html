@@ -199,11 +199,12 @@
             }
             url += '/' + path;
 
+            // 关键修改：设置viewOnly为true，启用只查看模式
             rfb = new RFB(document.body, url,
                           { repeaterID: WebUtil.getConfigVar('repeaterID', ''),
                             shared: WebUtil.getConfigVar('shared', true),
                             credentials: { password: password } });
-            rfb.viewOnly = WebUtil.getConfigVar('view_only', false);
+            rfb.viewOnly = true; // 强制设置为只查看模式
             rfb.addEventListener("connect",  connected);
             rfb.addEventListener("disconnect", disconnected);
             rfb.addEventListener("capabilities", function () { updatePowerButtons(); });
@@ -228,12 +229,18 @@
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            background-color: #2d2d2d;
         }
         
         /* 确保RFB canvas全屏显示 */
         .noVNC_canvas {
             width: 100% !important;
             height: 100% !important;
+        }
+        
+        /* 禁用鼠标交互 */
+        .noVNC_canvas {
+            pointer-events: none;
         }
     </style>
 </head>
