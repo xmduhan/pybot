@@ -135,7 +135,7 @@
         }
 
         function connected(e) {
-            document.getElementById('sendCtrlAltDelButton').disabled = false;
+            // 移除Send CtrlAltDel按钮相关的代码
             if (WebUtil.getConfigVar('encrypt',
                                      (window.location.protocol === "https:"))) {
                 status("Connected (encrypted) to " + desktopName, "normal");
@@ -145,7 +145,6 @@
         }
 
         function disconnected(e) {
-            document.getElementById('sendCtrlAltDelButton').disabled = true;
             updatePowerButtons();
             if (e.detail.clean) {
                 status("Disconnected", "normal");
@@ -164,7 +163,7 @@
             }
         }
 
-        document.getElementById('sendCtrlAltDelButton').onclick = sendCtrlAltDel;
+        // 移除Send CtrlAltDel按钮的事件绑定
         document.getElementById('machineShutdownButton').onclick = machineShutdown;
         document.getElementById('machineRebootButton').onclick = machineReboot;
         document.getElementById('machineResetButton').onclick = machineReset;
@@ -232,7 +231,8 @@
             rfb.addEventListener("capabilities", function () { updatePowerButtons(); });
             rfb.addEventListener("credentialsrequired", credentials);
             rfb.addEventListener("desktopname", updateDesktopName);
-            rfb.scaleViewport = WebUtil.getConfigVar('scale', false);
+            // 修改1: 将缩放模式默认设置为"本机缩放"
+            rfb.scaleViewport = WebUtil.getConfigVar('scale', true);
             rfb.resizeSession = WebUtil.getConfigVar('resize', false);
         })();
     </script>
@@ -243,8 +243,7 @@
     <div id="noVNC_left_dummy_elem"></div>
     <div id="noVNC_status">Loading</div>
     <div id="noVNC_buttons">
-      <input type=button value="Send CtrlAltDel"
-             id="sendCtrlAltDelButton" class="noVNC_shown">
+      <!-- 修改2: 移除Send CtrlAltDel按钮 -->
       <span id="noVNC_power_buttons" class="noVNC_hidden">
         <input type=button value="Shutdown"
                id="machineShutdownButton">
