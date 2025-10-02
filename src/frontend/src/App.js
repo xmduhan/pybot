@@ -16,19 +16,6 @@ function App() {
         </iframe>
       </div>
 
-      {/* 右侧操作区域 */}
-      <div className="right-panel">
-        <div className="button-group">
-          <button>信息1</button>
-          <button>信息2</button>
-          <button>信息3</button>
-          <button>信息4</button>
-        </div>
-        <div className="execution-info">
-          执行信息显示区
-        </div>
-      </div>
-
       {/* 底部操作区域 */}
       <div className="bottom-panel">
         <div className="tabs">
