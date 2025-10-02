@@ -74,6 +74,8 @@ RUN apt-get install -y \
     npm \
     gnome-screenshot
 
+RUN apt-get install -y ttyd
+
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 

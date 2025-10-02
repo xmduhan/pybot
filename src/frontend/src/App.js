@@ -18,16 +18,13 @@ function App() {
 
       {/* 底部操作区域 */}
       <div className="bottom-panel">
-        <div className="tabs">
-          <button className="tab-button">代码</button>
-          <button className="tab-button">命令</button>
-        </div>
-        <input
-          type="text"
-          placeholder="请输入内容"
-          className="input-box"
-        />
-        <button className="send-button">发送</button>
+        <iframe
+          title="TTYD Terminal"
+          src="/ttyd"
+          className="ttyd-iframe"
+        >
+          您的浏览器不支持 iframe。
+        </iframe>
       </div>
     </div>
   );
