@@ -1,37 +1,38 @@
 # PyBot
-A UI automation tool built using multimodal AI models.
+A UI automation tool built using multimodal AI models with web-based remote desktop access.
 
-This project is inspired by [bytebot](https://github.com/bytebot-ai/bytebot). It features a Python-based backend with a web interface for configuration, focusing on simplicity and usability.
+This project is inspired by [bytebot](https://github.com/bytebot-ai/bytebot). It features a Python-based backend with a React frontend interface, providing remote desktop access and automation capabilities through a web browser.
 
 ## Features
-- UI automation powered by multimodal AI models
-- Python backend with RESTful API
-- Web-based configuration interface
-- Containerized deployment with Docker
-- Virtual desktop environment (Xfce) accessible via noVNC
-- Chinese language support with input method
+- **Remote Desktop Access**: Full Xfce desktop environment accessible via noVNC in browser
+- **UI Automation**: Python-based automation powered by multimodal AI models
+- **Web Interface**: React-based frontend for configuration and control
+- **Containerized Deployment**: Complete Docker container with all dependencies
+- **Multi-language Support**: Chinese language and input method support
+- **Real-time VNC**: Browser-based VNC client for remote desktop interaction
 
 ## Architecture
-- **Backend**: Django-based Python application
-- **Frontend**: Web interface for configuration and control
-- **Virtual Desktop**: Xfce desktop environment accessible through browser
-- **Automation**: Multimodal AI-driven UI interactions
 
-## Prerequisites
-- Docker (for containerized deployment)
-- Kubernetes (optional, for production deployment)
+### Components
+- **Backend**: Django Python application running on port 8000
+  - RESTful API for automation control
+  - Database: SQLite3
+- **Frontend**: React application running on port 3000
+  - Web interface with VNC viewer integration
+  - Real-time control panel
+- **Virtual Desktop**: Xfce desktop environment with display server
+  - Xvfb: Virtual framebuffer X server
+  - x11vnc: VNC server for remote access
+  - noVNC: Web-based VNC client
+- **Web Server**: Nginx reverse proxy on port 80
+  - Proxies requests to frontend, backend, and noVNC services
+- **Supervisor**: Process management for all services
 
-## Quick Start
+### Service Ports
+- **80**: Nginx web server (main access point)
+- **3000**: React frontend development server
+- **8000**: Django backend API
+- **6080**: noVNC websockify service
+- **5900**: VNC server
 
-### 编译镜像并执行
-```bash
-git clone https://github.com/xmduhan/pybot
-cd pybot
-docker build src/docker -t pybot --network host \
-  --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy --build-arg no_proxy=$no_proxy 
-docker run pybot -p 8000:80
-```
-
-### 在浏览器中打开
-
-http://localhost:8000/
+## Project Structure
