@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:jammy-20251001
 # Set non-interactive frontend to avoid prompts during installation
 ARG DEBIAN_FRONTEND=noninteractive
 # Set display environment variable
