@@ -90,7 +90,7 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && rm ungoogled-chromium.AppImage
 
 
-COPY build_data.txt /build_data.txt
+# COPY build_data.txt /build_data.txt
 
 # Force git clone to always run by using cache busting argument
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
