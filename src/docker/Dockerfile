@@ -120,5 +120,7 @@ RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.ht
 # Ensure ibus-daemon starts properly
 RUN mkdir -p /etc/profile.d && echo "ibus-daemon -drx &" > /etc/profile.d/ibus.sh
 
+RUN apt-get install -y xfce4-session
+
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
