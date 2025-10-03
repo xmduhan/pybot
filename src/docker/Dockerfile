@@ -76,8 +76,6 @@ RUN apt-get install -y \
 
 RUN apt-get install -y ttyd
 
-RUN apt-get install -y firefox
-
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
