@@ -119,7 +119,7 @@ RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.html
 
 # Ensure ibus-daemon starts properly
-RUN mkdir -p /etc/profile.d && echo "ibus-daemon -drx &" > /etc/profile.d/ibus.sh
+# RUN mkdir -p /etc/profile.d && echo "ibus-daemon -drx &" > /etc/profile.d/ibus.sh
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
