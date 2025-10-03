@@ -79,10 +79,9 @@ RUN apt-get install -y \
     nginx \
     nodejs \
     npm \
-    gnome-screenshot
-
-RUN apt-get install -y ttyd
-RUN apt-get install -y pm-utils
+    gnome-screenshot \
+    ttyd \
+    pm-utils
 
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
