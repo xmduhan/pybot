@@ -108,6 +108,8 @@ RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 # Install Python backend dependencies
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
+RUN echo 1
+
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
 
