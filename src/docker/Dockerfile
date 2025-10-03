@@ -99,7 +99,7 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && ./ungoogled-chromium.AppImage --appimage-extract \
     && mv squashfs-root/ /usr/share/ungoogled-chromium \
     && rm ungoogled-chromium.AppImage
-COPY ungoogled-chromium /usr/bin/gnome-www-browser
+# COPY ungoogled-chromium /usr/bin/gnome-www-browser
 COPY ungoogled-chromium /usr/bin/x-www-browser
 
 # Clone pybot repository
