@@ -1,1 +1,1 @@
-/usr/share/ungoogled-chromium/AppRun --no-sandbox
+/usr/share/ungoogled-chromium/AppRun --no-first-run --start-maximized --test-type --no-sandbox --disable-infobars --disable-notifications --disable-component-update --disable-features=RendererCodeIntegrity --ignore-certificate-errors --ignore-urlfetcher-cert-requests
