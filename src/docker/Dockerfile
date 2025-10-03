@@ -5,6 +5,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:0
 # Set default display resolution to 1080p
 ENV DISPLAY_RESOLUTION=1920x1080x24
+# Set locale to Chinese
+ENV LANG=zh_CN.UTF-8
+ENV LANGUAGE=zh_CN:zh
+ENV LC_ALL=zh_CN.UTF-8
+ENV GTK_IM_MODULE=ibus
+ENV QT_IM_MODULE=ibus
+ENV XMODIFIERS=@im=ibus
 
 # Base system update
 RUN apt-get update
@@ -82,6 +89,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Create dbus runtime directory and generate machine ID
 RUN mkdir -p /run/dbus && dbus-uuidgen --ensure=/etc/machine-id
 
+# Set up locale
 RUN update-locale LANG=zh_CN.UTF-8
 
 # Install Chromium in a single RUN command
@@ -93,23 +101,24 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
 COPY ungoogled-chromium /usr/bin/gnome-www-browser
 COPY ungoogled-chromium /usr/bin/x-www-browser
 
-RUN echo 1
-
-# Force git clone to always run by using cache busting argument
+# Clone pybot repository
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 
-# 安装后台依赖
+# Install Python backend dependencies
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
 
-# Copy nginx configuration
+# Configure nginx
 RUN rm -f /etc/nginx/nginx.conf
 RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 
+# Configure noVNC
 RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.html
 
+# Ensure ibus-daemon starts properly
+RUN mkdir -p /etc/profile.d && echo "ibus-daemon -drx &" > /etc/profile.d/ibus.sh
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
