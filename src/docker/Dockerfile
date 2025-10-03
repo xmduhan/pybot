@@ -65,9 +65,7 @@ RUN apt-get install -y \
     language-pack-zh-hans \
     language-pack-gnome-zh-hans \
     ibus \
-    ibus-libpinyin \
-    xfce4-power-manager \
-    xfce4-screensaver
+    ibus-libpinyin
 
 # Install web server and Node.js
 RUN apt-get install -y \
@@ -110,18 +108,6 @@ RUN rm -f /etc/nginx/nginx.conf
 RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 
 RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.html
-
-# Create script to disable sleep and screensaver
-RUN echo '#!/bin/bash' > /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'sleep 10' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -s true' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac -s 0' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-on-ac-off -s 0' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/dpms-on-ac-sleep -s 0' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/inactivity-on-ac -s 0' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-screensaver -p /xfce4-screensaver/mode -s 0' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    echo 'xfconf-query -c xfce4-screensaver -p /xfce4-screensaver/lock-enabled -s false' >> /opt/pybot/src/docker/disable_sleep.sh && \
-    chmod +x /opt/pybot/src/docker/disable_sleep.sh
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
