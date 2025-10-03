@@ -90,6 +90,8 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && ./ungoogled-chromium.AppImage --appimage-extract \
     && mv squashfs-root/ /usr/share/ungoogled-chromium \
     && rm ungoogled-chromium.AppImage
+COPY ungoogled-chromium /usr/bin/gnome-www-browser
+COPY ungoogled-chromium /usr/bin/x-www-browser
 
 RUN echo 1
 
@@ -108,8 +110,6 @@ RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 
 RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.html
 
-COPY ungoogled-chromium /usr/bin/gnome-www-browser
-COPY ungoogled-chromium /usr/bin/x-www-browser
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
