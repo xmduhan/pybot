@@ -77,8 +77,6 @@ RUN apt-get install -y \
 # Install web server and Node.js
 RUN apt-get install -y \
     nginx \
-    nodejs \
-    npm \
     gnome-screenshot \
     ttyd \
     pm-utils
@@ -110,6 +108,10 @@ RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 # Install Python backend dependencies
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
+# Install node
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+RUN nvm install node
+RUN nvm use node
 
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
@@ -120,9 +122,6 @@ RUN ln -s /opt/pybot/src/docker/nginx.conf /etc/nginx/nginx.conf
 
 # Configure noVNC
 RUN ln -s /opt/pybot/src/docker/novnc/embedded.html /usr/share/novnc/embedded.html
-
-# Ensure ibus-daemon starts properly
-# RUN mkdir -p /etc/profile.d && echo "ibus-daemon -drx &" > /etc/profile.d/ibus.sh
 
 # Set container startup command to supervisord
 CMD ["/usr/bin/supervisord", "-c", "/opt/pybot/src/docker/supervisord.conf", "-n"]
