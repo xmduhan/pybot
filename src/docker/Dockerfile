@@ -87,7 +87,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Create dbus runtime directory and generate machine ID
 RUN mkdir -p /run/dbus && dbus-uuidgen --ensure=/etc/machine-id
 
-
 # Set up locale
 RUN update-locale LANG=zh_CN.UTF-8
 
@@ -97,8 +96,12 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && ./ungoogled-chromium.AppImage --appimage-extract \
     && mv squashfs-root/ /usr/share/ungoogled-chromium \
     && rm ungoogled-chromium.AppImage
-# COPY ungoogled-chromium /usr/bin/gnome-www-browser
 COPY ungoogled-chromium /usr/bin/x-www-browser
+
+# Install node
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+RUN nvm install node
+RUN nvm use node
 
 RUN echo 1
 
@@ -107,11 +110,6 @@ RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 
 # Install Python backend dependencies
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
-
-# Install node
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-RUN nvm install node
-RUN nvm use node
 
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
