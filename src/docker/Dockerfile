@@ -99,8 +99,8 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
 COPY ungoogled-chromium /usr/bin/x-www-browser
 
 # Install node
+ENV NVM_DIR=/root/.nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-# RUN cat ~/.bashrc && sleep 60
 RUN ~/.nvm/nvm.sh
 RUN nvm install node
 RUN nvm use node
