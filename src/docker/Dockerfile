@@ -100,8 +100,8 @@ COPY ungoogled-chromium /usr/bin/x-www-browser
 
 # Install node
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-RUN cat ~/.bashrc && sleep 60
-RUN . ~/.bashrc
+# RUN cat ~/.bashrc && sleep 60
+RUN source ~/.bashrc
 RUN nvm install node
 RUN nvm use node
 
