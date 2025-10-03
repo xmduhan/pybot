@@ -102,13 +102,14 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
 # COPY ungoogled-chromium /usr/bin/gnome-www-browser
 COPY ungoogled-chromium /usr/bin/x-www-browser
 
+RUN echo 1
+
 # Clone pybot repository
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 
 # Install Python backend dependencies
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
-RUN echo 2
 
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
