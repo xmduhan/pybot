@@ -98,24 +98,15 @@ RUN wget https://github.com/ungoogled-software/ungoogled-chromium-portablelinux/
     && rm ungoogled-chromium.AppImage
 COPY ungoogled-chromium /usr/bin/x-www-browser
 
-ENV NVM_DIR=/root/.nvm
-ENV NODE_VERSION=18.17.1  
 
-# Install NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash && \
+# Install node
+ENV NVM_DIR=/root/.nvm
+ENV NODE_VERSION=22.20.0
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
     nvm use $NODE_VERSION && \
     nvm alias default $NODE_VERSION
-
-# Install node
-ENV NVM_DIR=/root/.nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-RUN ~/.nvm/nvm.sh
-RUN nvm install node
-RUN nvm use node
-
-RUN echo 1
 
 # Clone pybot repository
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
