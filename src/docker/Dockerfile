@@ -115,7 +115,7 @@ RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
 # Build frontend
-RUN bash "cd /opt/pybot/src/frontend && npm install && npm run build"
+RUN /bin/bash "cd /opt/pybot/src/frontend && npm install && npm run build"
 
 # Configure nginx
 RUN rm -f /etc/nginx/nginx.conf
