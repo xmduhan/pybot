@@ -101,7 +101,7 @@ COPY ungoogled-chromium /usr/bin/x-www-browser
 
 # Install node
 ENV NVM_DIR=/root/.nvm
-ENV NODE_VERSION=22.20.0
+ENV NODE_VERSION=v22.20.0
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
@@ -115,7 +115,7 @@ RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
 # Build frontend
-RUN /bin/bash "cd /opt/pybot/src/frontend" && "npm install && npm run build"
+RUN cd /opt/pybot/src/frontend && /bin/bash npm install && /bin/bash npm run build
 
 # Configure nginx
 RUN rm -f /etc/nginx/nginx.conf
