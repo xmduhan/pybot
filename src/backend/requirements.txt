@@ -2,3 +2,4 @@ Django==5.2.4
 PyAutoGUI==0.9.54
 jupyter==1.1.1
 opencv-python==4.12.0.88
+openai==1.109.1
