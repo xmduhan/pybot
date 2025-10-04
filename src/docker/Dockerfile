@@ -101,7 +101,7 @@ COPY ungoogled-chromium /usr/bin/x-www-browser
 
 # Install node
 ENV NVM_DIR=/root/.nvm
-ENV NODE_VERSION=v22.20.0
+ENV NODE_VERSION=22.20.0
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
