@@ -108,6 +108,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | b
     nvm use $NODE_VERSION && \
     nvm alias default $NODE_VERSION 
 
+
 # Clone pybot repository
 RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 
@@ -115,7 +116,7 @@ RUN git clone https://github.com/xmduhan/pybot /opt/pybot
 RUN pip install -r /opt/pybot/src/backend/requirements.txt
 
 # Build frontend
-RUN export PATH=$PATH:$NVM_DIR/versions/node/$NODE_VERSION/bin/
+RUN ln -s $NVM_DIR/versions/node/$NODE_VERSION/bin/* /bin/
 # RUN cd /opt/pybot/src/frontend && npm install && npm run build
 
 # Configure nginx
