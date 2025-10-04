@@ -106,8 +106,9 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | b
     . $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
     nvm use $NODE_VERSION && \
-    nvm alias default $NODE_VERSION \
-    ln -s $NVM_DIR/versions/node/$NODE_VERSION/bin/* /bin/
+    nvm alias default $NODE_VERSION
+
+RUN ln -s $NVM_DIR/versions/node/$NODE_VERSION/bin/* /bin/
 
 
 # Clone pybot repository
