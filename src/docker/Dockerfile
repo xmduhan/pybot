@@ -121,7 +121,7 @@ RUN pip install -r /opt/pybot/src/backend/requirements.txt
 # Build frontend
 RUN cd /opt/pybot/src/frontend && npm install && npm run build
 
-RUN cd /opt/pybot/src/frontend && npm install -D @playwright/test@latest && npx playwright install --with-deps
+RUN cd /opt/pybot/src/frontend && npx playwright install --with-deps
 
 # Configure nginx
 RUN rm -f /etc/nginx/nginx.conf
